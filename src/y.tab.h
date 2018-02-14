@@ -62,7 +62,8 @@ extern int yydebug;
     VAR = 272,
     NUMBER = 273,
     IDENTIFIER = 274,
-    STRING = 275
+    STRING = 275,
+    ASSIGN = 276
   };
 #endif
 
