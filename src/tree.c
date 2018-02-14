@@ -1,4 +1,5 @@
 #include <vslc.h>
+#include <stdarg.h>
 
 
 void
@@ -34,19 +35,29 @@ void
 node_init (node_t *nd, node_index_t type, void *data, uint64_t n_children, ...)
 {
     nd->type = type;
+    nd->data = data;
+    nd->children = (node_t **) malloc(n_children*sizeof(node_t *));
+    va_list arglist;
+    va_start(arglist, n_children);
+    for (uint64_t n = 0; n < n_children; n++) {
+        nd->children[n] = va_arg(arglist, node_t *);
+    }
+    va_end(arglist);
 }
 
 
 /* Remove a node and its contents */
 void
-node_finalize ( node_t *discard )
-{
+node_finalize ( node_t *discard ) {
+    free(discard);
 }
-
 
 /* Recursively remove the entire tree rooted at a node */
 void
-destroy_subtree ( node_t *discard )
-{
-    free ( discard );
+destroy_subtree ( node_t *discard ) {
+    for (uint64_t n = 0; n < discard->n_children; n++) {
+        node_finalize(discard->children[n]);
+    }   
+    free(discard);
+    free(discard->children);
 }
