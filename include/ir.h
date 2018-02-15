@@ -9,11 +9,11 @@ typedef struct n {
     struct n **children;
 } node_t;
 
-node_t node_init (
+node_t * node_init (
     node_t *n, node_index_t type, void *data, uint64_t n_children, ...
 );
 
-node_t make_node (
+node_t * make_node (
     node_index_t type, void *data, uint64_t n_children, ...
 );
 

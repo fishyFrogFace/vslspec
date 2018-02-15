@@ -18,7 +18,7 @@
 program :
     global_list { /* no need for FUNC here? wat */
         root = (node_t *) malloc ( sizeof(node_t) );
-        node_init ( root, PROGRAM, NULL, 0 );
+        $$ = node_init ( root, PROGRAM, NULL, 0 );
     }
     ;
 
@@ -123,8 +123,8 @@ expr:
     | expr '|' expr
     | expr '^' expr
     | expr '&' expr
-    | expr '>' '>' expr
-    | expr '<' '<' expr
+    | expr RSHIFT expr
+    | expr LSHIFT expr
     | expr '*' expr
     | expr '/' expr
     | '-' expr
@@ -153,7 +153,7 @@ number:
     ;
 
 string:
-    STRING
+    STRING 
     ;
 %%
 

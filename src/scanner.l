@@ -13,6 +13,9 @@ IDENTIFIER              {LETTER}({LETTER}|{DIGIT})*
 COMMENT                 \/\/.*\n
 WSCHARS                 [\t\n\r\v ]
 WHITESPACE              {WSCHARS}+
+ASSIGN                  (:=)
+LSHIFT                  (<<)
+RSHIFT                  (>>)
 
 %%
 FUNC                    { return FUNC; }
@@ -27,9 +30,9 @@ ELSE                    { return ELSE; }
 WHILE                   { return WHILE; }
 DO                      { return DO; }
 VAR                     { return VAR; }
-(:=)                    { return ASSIGN; }
-(>>)                    { return RSHIFT; }
-(<<)                    { return LSHIFT; }
+ASSIGN                  { return ASSIGN; }
+RSHIFT                  { return RSHIFT; }
+LSHIFT                  { return LSHIFT; }
 {NUMBER}                { return NUMBER; }
 {STRING}                { return STRING; }
 {IDENTIFIER}            { return IDENTIFIER; }
